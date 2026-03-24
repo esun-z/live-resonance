@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>out_widget</class>
+ <widget class="QWidget" name="out_widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>594</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Outputs</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="MidiOutGroupBox" name="midi_out_group_box">
+     <property name="title">
+      <string>MIDI Output</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="KeyOutGroupBox" name="key_output_group_box">
+     <property name="title">
+      <string>Key Output</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MidiOutGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header location="global">views.midi_out_group_box</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KeyOutGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header location="global">views.key_out_group_box</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
