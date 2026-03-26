@@ -32,7 +32,7 @@ class MessagePlayer(QObject):
 
     @Slot(mido.Message)
     def play_message(self, msg: mido.Message) -> None:
-        if is_note_on(msg) and msg.velocity >= self.player_config.ignore_note_softer_than:
+        if is_note_on(msg):
             self._press_note(msg.note)
         elif is_note_off(msg):
             self._release_note(msg.note)

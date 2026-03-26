@@ -89,6 +89,10 @@ class MidiInWidget(QWidget):
                     checkbox.blockSignals(True)
                     checkbox.setChecked(self.config.enabled_channels[i])
                     checkbox.blockSignals(False)
+            # update filter
+            self.ui.min_velocity_spin_box.blockSignals(True)
+            self.ui.min_velocity_spin_box.setValue(self.config.min_note_velocity)
+            self.ui.min_velocity_spin_box.blockSignals(False)
 
     @Slot()
     def update_config(self) -> None:
@@ -110,8 +114,10 @@ class MidiInWidget(QWidget):
                 checkbox = self.findChild(QCheckBox, checkbox_name)
                 if checkbox:
                     self.config.enabled_channels[i] = checkbox.isChecked()
+            # update filter
+            self.config.min_note_velocity = self.ui.min_velocity_spin_box.value()
 
-            self.logger.debug(f"Enabled channels: {[i+1 for i, enabled in enumerate(self.config.enabled_channels) if enabled]}")
+            # self.logger.debug(f"Enabled channels: {[i+1 for i, enabled in enumerate(self.config.enabled_channels) if enabled]}")
 
     @Slot(bool)
     def _handle_enabled_changed(self, enabled: bool) -> None:

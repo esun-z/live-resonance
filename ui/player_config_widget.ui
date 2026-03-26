@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>player_config_widget</class>
+ <widget class="QWidget" name="player_config_widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Player Config</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QGroupBox" name="range_group_box">
+     <property name="title">
+      <string>Range</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="min_note_hint_label">
+        <property name="text">
+         <string>Min Note</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="min_note_spin_box">
+        <property name="maximum">
+         <number>127</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="max_note_hint_label">
+        <property name="text">
+         <string>Max Note</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="vision_base_octave_hint_label">
+        <property name="text">
+         <string>Base Oct.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="max_note_spin_box">
+        <property name="maximum">
+         <number>127</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="vision_base_octave_spin_box">
+        <property name="minimum">
+         <number>-1</number>
+        </property>
+        <property name="maximum">
+         <number>9</number>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="strategy_group_box">
+     <property name="title">
+      <string>Strategy</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="low_out_of_range_strategy_hint_label">
+        <property name="text">
+         <string>Too Low:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="low_out_of_range_strategy_combo_box"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="high_out_of_range_strategy_combo_box"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="high_out_of_range_strategy_hint_label">
+        <property name="text">
+         <string>Too High:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="octave_strategy_hint_label">
+        <property name="text">
+         <string>Oct. Latching:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="octave_strategy_combo_box"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="clean_switch_hint_label">
+        <property name="text">
+         <string>On Switch:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="clean_switch_check_box">
+        <property name="text">
+         <string>Clear Notes</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="timing_group_box">
+     <property name="title">
+      <string>Timing</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="note_after_octave_switch_ms_hint_label">
+        <property name="text">
+         <string>1st. Note After Switch:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="note_after_octave_switch_ms_spin_box">
+        <property name="maximum">
+         <number>500</number>
+        </property>
+        <property name="singleStep">
+         <number>10</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="min_padel_interval_ms_hint_label">
+        <property name="text">
+         <string>Padel Interval:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="octave_switch_cooldown_ms_hint_label">
+        <property name="text">
+         <string>Oct. Switch CD:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="min_padel_interval_ms_spin_box">
+        <property name="maximum">
+         <number>500</number>
+        </property>
+        <property name="singleStep">
+         <number>10</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="octave_switch_cooldown_ms_spin_box">
+        <property name="maximum">
+         <number>5000</number>
+        </property>
+        <property name="singleStep">
+         <number>10</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -23,4 +23,4 @@ class PlayerConfig(BaseModel):
     min_padel_interval_ms: int = 100
     octave_switch_cooldown_ms: int = 200
     clean_switch: bool = False
-    ignore_note_softer_than: int = 10
+    # ignore_note_softer_than: int = 10

@@ -13,7 +13,16 @@
   <property name="windowTitle">
    <string>Star Band</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="KeyMapWidget" name="key_map_widget" native="true"/>
+    </item>
+    <item>
+     <widget class="PlayerConfigWidget" name="player_config_widget" native="true"/>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -82,6 +91,18 @@
    <class>OutWidget</class>
    <extends>QWidget</extends>
    <header location="global">views.out_widget</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KeyMapWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">views.key_map_widget</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlayerConfigWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">views.player_config_widget</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

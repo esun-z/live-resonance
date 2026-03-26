@@ -3,13 +3,11 @@ from PySide6.QtCore import Slot
 from utils.ui_constants import UIConstants
 
 class PianoKeyButton(QPushButton):
-    def __init__(self, note_name: str, key_name: str, is_black: bool, parent=None) -> None:
+    def __init__(self, is_black: bool, parent=None) -> None:
         super().__init__(parent)
-        self.note_name = note_name
-        self.key_name = key_name
         self.is_black = is_black
-        self.setCheckable(True)
-        self.setChecked(False)
+        # self.setCheckable(True)
+        # self.setChecked(False)
 
         # set size
         if is_black:
@@ -37,6 +35,5 @@ class PianoKeyButton(QPushButton):
         """
     
     @Slot(bool)
-    def setChecked(self, checked: bool) -> None:
-        super().setChecked(checked)
-        self.setStyleSheet(self._get_style(self.is_black, checked))
+    def update_select_status(self, selected: bool) -> None:
+        self.setStyleSheet(self._get_style(self.is_black, selected))
