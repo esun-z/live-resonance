@@ -2,18 +2,19 @@ from PySide6.QtWidgets import QWidget, QCheckBox
 from PySide6.QtCore import QObject, Signal, Slot, QTimer
 import mido
 from ui.ui_midi_in_widget import Ui_midi_in_widget
-from models import MidiInConfig
+from models import AppConfig
 from logger import get_logger
 from utils.ui_constants import UIConstants
 from core import MidiInManager
 
 class MidiInWidget(QWidget):
-    message_received = Signal(mido.Message)
+    # message_received = Signal(mido.Message)
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.ui = Ui_midi_in_widget()
         self.ui.setupUi(self)
         self.logger = get_logger(__name__)
+        self.app_config = None
         self.config = None
         self.device_names = []
         self.manager = None
@@ -37,10 +38,11 @@ class MidiInWidget(QWidget):
         self.device_update_timer.timeout.connect(self.update_device_list)
         self.device_update_timer.start()
 
-    def load(self, config: MidiInConfig) -> None:
-        self.config = config
+    def load(self, config: AppConfig) -> None:
+        self.app_config = config
+        self.config = config.midi_in
         self.manager = MidiInManager(config, parent=self)
-        self.manager.message_received.connect(self.message_received)
+        # self.manager.message_received.connect(self.message_received)
         self.manager.status_changed.connect(self._handle_manager_status_changed)
         self.update_ui()
 

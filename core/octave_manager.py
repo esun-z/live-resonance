@@ -52,7 +52,7 @@ class Offsets:
 
 class OctaveManager(QObject):
     move_finished = Signal()
-    octave_switch_duration = 50
+    octave_switch_duration = 60
     def __init__(self, key_map_config: KeyMapConfig, switch_cooldown_ms: int, vision_base_octave: int, parent=None) -> None:
         super().__init__(parent)
         self.vision_base_octave = vision_base_octave

@@ -23,9 +23,7 @@ class SustainManager(QObject):
         self._min_interval = min_interval
         self._queue = deque()
         self._is_padel_pressed = False
-        self._timer = QTimer(self)
-        self._timer.setSingleShot(True)
-        self._timer.timeout.connect(self._process_next)
+        self._timer = None
 
         self._is_running = False
 
@@ -37,8 +35,11 @@ class SustainManager(QObject):
 
     def _process_next(self):
         if not self._queue:
+            # print("SustainManager: No more tasks to process")  # Debug log
             self._is_running = False
             return
+        
+        # print(f"SustainManager processing: {self._queue[0]}")  # Debug log
 
         # execute the first task in the queue
         is_on = self._queue.popleft()
@@ -48,4 +49,11 @@ class SustainManager(QObject):
 
         # set timer for the next task
         self._is_running = True
+        if not self._timer:
+            # print("Creating timer")  # Debug log
+            self._timer = QTimer(self)
+            self._timer.setSingleShot(True)
+            self._timer.timeout.connect(self._process_next)
+        # print(f"Setting timer for {self._min_interval} ms")  # Debug log
         self._timer.start(self._min_interval)
+        # print(f"Timer started for {self._min_interval} ms")  # Debug log

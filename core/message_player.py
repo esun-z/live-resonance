@@ -11,8 +11,8 @@ from logger import get_logger
 
 class MessagePlayer(QObject):
     delayed_note_play_interval_ms: int = 1
-    def __init__(self, key_map: KeyMapConfig, player_config: PlayerConfig):
-        super().__init__()
+    def __init__(self, key_map: KeyMapConfig, player_config: PlayerConfig, parent=None):
+        super().__init__(parent)
         self.note_manager = NoteManager(key_map)
         self.octave_manager = OctaveManager(key_map_config=key_map, 
                                             switch_cooldown_ms=player_config.octave_switch_cooldown_ms, 
@@ -26,9 +26,7 @@ class MessagePlayer(QObject):
         self.note_status: List[int] = [-1] * 128
         self.delayed_notes: deque[Tuple[int, int, bool]] = deque() # (original_note, note_to_play, disable_allow_repeat)
         self.delayed_releases: deque[int] = deque() # note to release after octave switch
-        self._timer = QTimer(self)
-        self._timer.setSingleShot(True)
-        self._timer.timeout.connect(self._process_next)
+        self._timer = None
         self._is_playing_delayed_notes = False
         self.logger = get_logger(__name__)
 
@@ -40,8 +38,10 @@ class MessagePlayer(QObject):
             self._release_note(msg.note)
         elif is_padel_on(msg):
             self.sustain_manager.submit(True)
+            # self.logger.debug("Padel on")
         elif is_padel_off(msg):
             self.sustain_manager.submit(False)
+            # self.logger.debug("Padel off")
 
     def _press_note(self, note: int) -> None:
         # check note bound for out-of-range strategy
@@ -151,6 +151,10 @@ class MessagePlayer(QObject):
             self._release_note(note)
 
         self._is_playing_delayed_notes = True
+        if not self._timer:
+            self._timer = QTimer(self)
+            self._timer.setSingleShot(True)
+            self._timer.timeout.connect(self._process_next)
         self._timer.start(self.delayed_note_play_interval_ms)
     
     @Slot(int, bool)

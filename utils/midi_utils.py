@@ -1,6 +1,8 @@
 import mido
 from typing import List, Optional
 
+note_names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
 def decode_midi_text(text: str, charset: Optional[str] = None) -> tuple[str, str]:
     if charset is not None:
         try:
@@ -50,7 +52,6 @@ def set_message_channel(msg: mido.Message, target_channel: int) -> mido.Message:
     return message
 
 def get_note_name(note: int, is_musical: bool = False) -> str:
-    note_names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
     octave = get_note_octave(note) - (1 if is_musical else 0)
     name = note_names[note % 12]
     return f"{name}{octave}"

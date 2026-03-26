@@ -19,7 +19,7 @@ class PlayerConfig(BaseModel):
     high_out_of_range_strategy: OutOfRangeStrategy = OutOfRangeStrategy.TO_NEAREST
     low_out_of_range_strategy: OutOfRangeStrategy = OutOfRangeStrategy.TO_NEAREST
     octave_strategy: OctaveStrategy = OctaveStrategy.LATCH_HIGH
-    note_after_octave_switch_ms: int = 60
+    note_after_octave_switch_ms: int = 80
     min_padel_interval_ms: int = 100
     octave_switch_cooldown_ms: int = 200
     clean_switch: bool = False
