@@ -1,11 +1,13 @@
 from PySide6.QtWidgets import QMainWindow, QFileDialog, QMenu
-from PySide6.QtCore import QSettings
+from PySide6.QtCore import QSettings, QUrl
+from PySide6.QtGui import QDesktopServices
 from pathlib import Path
 from ui.ui_main_window import Ui_main_window
 from models import AppConfig
 from logger import get_logger
 from utils.system_utils import resource_path
 from utils.ui_constants import UIConstants
+from views.about_dialog import AboutDialog
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
@@ -57,6 +59,11 @@ class MainWindow(QMainWindow):
         view_menu.addAction(tool_bar_action)
         view_menu.addSeparator()
         view_menu.addAction("Reset View", self.reset_window_settings)
+
+        # about
+        about_menu = self.ui.menubar.addMenu("Help")
+        about_menu.addAction("About", self.show_about_dialog)
+        about_menu.addAction("GitHub", self.go_to_github)
         
 
     def init_connection(self):
@@ -176,6 +183,13 @@ class MainWindow(QMainWindow):
     # def handle_message(self, msg: mido.Message) -> None:
     #     # self.logger.debug(f"Received MIDI message: {msg}")
     #     self.message_player.play_message(msg)
+
+    def show_about_dialog(self):
+        about_dialog = AboutDialog(self)
+        about_dialog.exec()
+
+    def go_to_github(self):
+        QDesktopServices.openUrl(QUrl(UIConstants.github_url))
 
     def closeEvent(self, event):
         self.write_settings()

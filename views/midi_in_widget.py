@@ -5,6 +5,7 @@ from ui.ui_midi_in_widget import Ui_midi_in_widget
 from models import AppConfig
 from logger import get_logger
 from utils.ui_constants import UIConstants
+from utils.system_utils import jump_to_process_window
 from core import MidiInManager
 
 class MidiInWidget(QWidget):
@@ -150,6 +151,13 @@ class MidiInWidget(QWidget):
         else:
             if running:
                 self.logger.info("MIDI input started successfully")
+                if self.app_config.key_out.auto_jump:
+                    self.logger.info(f"Auto-jumping to target process '{self.app_config.key_out.target_process}' after {self.app_config.key_out.jump_delay} seconds")
+                    jump_delay = self.app_config.key_out.jump_delay
+                    if jump_delay > 0: 
+                        QTimer.singleShot(int(jump_delay * 1000), lambda: jump_to_process_window(self.app_config.key_out.target_process))
+                    else:
+                        jump_to_process_window(self.app_config.key_out.target_process)
             else:
                 self.logger.info("MIDI input stopped")
 

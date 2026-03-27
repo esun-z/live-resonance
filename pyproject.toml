@@ -1,7 +1,7 @@
 [project]
-name = "star-band"
-version = "0.1.0"
-description = "MIDI Device connectivity for BlueProtocol:StarResonance"
+name = "live-resonance"
+version = "1.0.0"
+description = "Play Blue Protocol: Star Resonance virtual instruments live with any MIDI device"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

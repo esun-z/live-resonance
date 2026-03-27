@@ -22,3 +22,5 @@ class UIConstants:
     vision_octave_count = 3
     template_dir = "templates"
     default_config_path = "templates/piano_C3-B6_48keys.yaml"
+    project_name = "Live Resonance"
+    github_url = "https://github.com/esun-z/live-resonance"

@@ -139,6 +139,9 @@ class OctaveManager(QObject):
     def vision_octave_count(self) -> int:
         return self.offsets.vision_octave_count
 
+    def to_note_range(self) -> range:
+        return self.offsets.get_vision_note_range()
+
 # class OctaveManager(QObject):
 #     vision_octave_count = UIConstants.vision_octave_count
 #     # vision_base_octave = 4
