@@ -133,7 +133,7 @@ class MainWindow(QMainWindow):
 
     def load_presets(self):
         self.preset_menu.clear()
-        preset_dir = Path(UIConstants.template_dir)
+        preset_dir = Path(resource_path(UIConstants.template_dir))
         if not preset_dir.exists():
             self.logger.warning(f"Preset directory {preset_dir} does not exist")
         else:
