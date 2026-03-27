@@ -59,6 +59,26 @@ def jump_to_process_window(process_name: str) -> bool:
             return True
     return False
 
+def is_foreground_window(process_name: str) -> bool:
+    try:
+        fg_hwnd = win32gui.GetForegroundWindow()
+        _, fg_pid = win32process.GetWindowThreadProcessId(fg_hwnd)
+        fg_process = psutil.Process(fg_pid)
+        if fg_process.name() == process_name:
+            return True
+        else:
+            return False
+    except Exception as e:
+        return False
+    # pid = _get_pid_by_name(process_name)
+    # if pid is not None:
+    #     hwnd = _get_hwnd_for_pid(pid)
+    #     if hwnd is not None:
+    #         fg_hwnd = win32gui.GetForegroundWindow()
+    #         print(f"Checking foreground window: target process '{process_name}' has hwnd {hwnd}, current foreground hwnd is {fg_hwnd}")
+    #         return hwnd == fg_hwnd
+    # return False
+
 def press_key(key_name: str) -> None:
     if str:
         keyboard.press(key_name)

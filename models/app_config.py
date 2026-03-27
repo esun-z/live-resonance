@@ -27,7 +27,8 @@ class AppConfig(BaseModel):
         except:
             return False
 
-    def load_from_yaml(self, path: str) -> Optional["AppConfig"]:
+    @classmethod
+    def load_from_yaml(cls, path: str) -> Optional["AppConfig"]:
         path = Path(path)
         if not path.is_file():
             return None

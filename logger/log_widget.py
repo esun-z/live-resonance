@@ -8,7 +8,7 @@ from .log_delegate import LogDelegate
 from .qt_signal_handler import QtSignalHandler
 
 class LogWidget(QWidget):
-    DEBUGGING = True
+    DEBUGGING = False
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_log_widget()

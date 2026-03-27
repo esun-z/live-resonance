@@ -30,6 +30,18 @@ class MessagePlayer(QObject):
         self._is_playing_delayed_notes = False
         self.logger = get_logger(__name__)
 
+    @Slot()
+    def reset(self):
+        self.note_manager.release_all_notes()
+        self.note_status = [-1] * 128
+        self.delayed_notes.clear()
+        self.delayed_releases.clear()
+        self._is_playing_delayed_notes = False
+        self._timer = None
+        self.octave_manager.reset_octaves()
+        self.octave_manager.reset_cooldown()
+        self.sustain_manager.reset()
+    
     @Slot(mido.Message)
     def play_message(self, msg: mido.Message) -> None:
         if is_note_on(msg):

@@ -20,3 +20,5 @@ class UIConstants:
     key_boarder_color = "#aaaaaa"
     key_font_size = 8
     vision_octave_count = 3
+    template_dir = "templates"
+    default_config_path = "templates/piano_C3-B6_48keys.yaml"

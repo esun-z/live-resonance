@@ -27,6 +27,13 @@ class SustainManager(QObject):
 
         self._is_running = False
 
+    def reset(self):
+        if self._timer and self._timer.isActive():
+            self._timer.stop()
+        self._queue.clear()
+        self._is_padel_pressed = False
+        self._is_running = False
+
     def submit(self, is_on: bool) -> None:
         self._queue.append(is_on)
         if not self._is_running:

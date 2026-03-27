@@ -8,7 +8,7 @@ from utils.ui_constants import UIConstants
 from core import MidiInManager
 
 class MidiInWidget(QWidget):
-    # message_received = Signal(mido.Message)
+    message_received = Signal(mido.Message)
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.ui = Ui_midi_in_widget()
@@ -42,7 +42,7 @@ class MidiInWidget(QWidget):
         self.app_config = config
         self.config = config.midi_in
         self.manager = MidiInManager(config, parent=self)
-        # self.manager.message_received.connect(self.message_received)
+        self.manager.message_received.connect(self.message_received)
         self.manager.status_changed.connect(self._handle_manager_status_changed)
         self.update_ui()
 
@@ -105,7 +105,7 @@ class MidiInWidget(QWidget):
             else:
                 self.config.device_name = ""
                 self.ui.device_enable_check_box.setEnabled(False)
-                self.logger.debug("No MIDI input device selected")
+                # self.logger.debug("No MIDI input device selected")
             # update enabled state
             self.config.enabled = self.ui.device_enable_check_box.isChecked()
             # update channel checkboxes

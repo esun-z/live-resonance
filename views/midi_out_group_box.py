@@ -93,7 +93,7 @@ class MidiOutGroupBox(QGroupBox):
             else:
                 self.config.device_name = ""
                 self.ui.enable_check_box.setEnabled(False)
-                self.logger.debug("No MIDI output device selected")
+                # self.logger.debug("No MIDI output device selected")
             self.config.enabled = self.ui.enable_check_box.isChecked()
             self.config.merge_channels = self.ui.merge_channel_group_box.isChecked()
             self.config.target_channel = self.ui.target_channel_spin_box.value() - 1

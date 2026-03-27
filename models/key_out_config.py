@@ -5,4 +5,4 @@ class KeyOutConfig(BaseModel):
     target_process: str = ""
     auto_jump: bool = False
     jump_delay: float = 0.0
-    mute_outside_target: bool = True
+    mute_outside_target: bool = False

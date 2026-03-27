@@ -1,0 +1,88 @@
+key_map:
+  allow_repeat: true
+  notes:
+  - z
+  - '1'
+  - x
+  - '2'
+  - c
+  - v
+  - '3'
+  - b
+  - '4'
+  - n
+  - '5'
+  - m
+  - a
+  - '6'
+  - s
+  - '7'
+  - d
+  - f
+  - '8'
+  - g
+  - '9'
+  - h
+  - '0'
+  - j
+  - q
+  - i
+  - w
+  - o
+  - e
+  - r
+  - p
+  - t
+  - '['
+  - y
+  - ']'
+  - u
+  octave_high_offset_switch: left shift
+  octave_low_offset_switch: left ctrl
+  sustain: space
+  vision_to_high: f3
+  vision_to_low: f1
+  vision_to_mid: f2
+key_out:
+  auto_jump: false
+  enabled: true
+  jump_delay: 0.0
+  mute_outside_target: false
+  target_process: ''
+midi_in:
+  device_name: ''
+  enabled: false
+  enabled_channels:
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  - true
+  min_note_velocity: 0
+midi_out:
+  device_name: ''
+  enabled: false
+  merge_channels: false
+  target_channel: 0
+player:
+  clean_switch: false
+  high_out_of_range_strategy: to nearest octave
+  low_out_of_range_strategy: to nearest octave
+  max_note: 95
+  min_note: 48
+  min_padel_interval_ms: 100
+  note_after_octave_switch_ms: 80
+  octave_strategy: auto latch and protect higher octaves
+  octave_switch_cooldown_ms: 200
+  vision_base_octave: 4
