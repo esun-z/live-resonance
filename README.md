@@ -30,7 +30,7 @@ It is prohibited to package this project as closed-source software for sale. If 
 
 ### TODOs
 
-- [ ] General MIDI Drum presets for in-game drum mapping.
+- [x] General MIDI Drum presets for in-game drum mapping.
 - [ ] More control key support for guitar and bass mapping.
 - [ ] Localization.
 
