@@ -80,11 +80,11 @@ def is_foreground_window(process_name: str) -> bool:
     # return False
 
 def press_key(key_name: str) -> None:
-    if str:
+    if key_name:
         keyboard.press(key_name)
 
 def release_key(key_name: str) -> None:
-    if str:
+    if key_name:
         keyboard.release(key_name)
 
 def press_and_release_key(key_name: str, interval: float = 0.0) -> None:
@@ -96,5 +96,5 @@ def press_and_release_key(key_name: str, interval: float = 0.0) -> None:
     #     interval = min(interval, 0.5) # shift key must has some duration to be recognized by some games, otherwise it will be ignored
     #     time.sleep(interval)
     # keyboard.release(key_name)
-    if str:
+    if key_name:
         keyboard.press_and_release(key_name)
