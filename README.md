@@ -65,3 +65,9 @@ Astral uv is used for dependency management. Please [install Astral uv](https://
 ### Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+### Acknowledgements
+
+Though this project is developed independently, it draws inspiration from the following projects:
+
+- [MaaFreamework](https://github.com/MaaXYZ/MaaFramework)
