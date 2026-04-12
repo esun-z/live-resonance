@@ -28,6 +28,7 @@ class KeyOutGroupBox(QGroupBox):
         self.ui.jump_delay_double_spin_box.valueChanged.connect(self.update_config)
         self.ui.mute_outside_check_box.stateChanged.connect(self.update_config)
         self.ui.jump_push_button.clicked.connect(self._go_to_target_window)
+        self.ui.background_input_check_box.stateChanged.connect(self.update_config)
 
     def load(self, config: KeyOutConfig) -> None:
         self.config = config
@@ -71,6 +72,9 @@ class KeyOutGroupBox(QGroupBox):
             self.ui.mute_outside_check_box.blockSignals(True)
             self.ui.mute_outside_check_box.setChecked(self.config.mute_outside_target)
             self.ui.mute_outside_check_box.blockSignals(False)
+            self.ui.background_input_check_box.blockSignals(True)
+            self.ui.background_input_check_box.setChecked(self.config.background_input)
+            self.ui.background_input_check_box.blockSignals(False)
 
     @Slot()
     def update_config(self):
@@ -83,7 +87,8 @@ class KeyOutGroupBox(QGroupBox):
             self.config.auto_jump = self.ui.auto_jump_check_box.isChecked()
             self.config.jump_delay = self.ui.jump_delay_double_spin_box.value()
             self.config.mute_outside_target = self.ui.mute_outside_check_box.isChecked()
-
+            self.config.background_input = self.ui.background_input_check_box.isChecked()
+            
     @Slot()
     def _go_to_target_window(self):
         if self.config:

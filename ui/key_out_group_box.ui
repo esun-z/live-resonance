@@ -75,6 +75,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="background_input_check_box">
+     <property name="text">
+      <string>Use Background Input (Experimental)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="jump_push_button">
      <property name="text">
       <string>Go to Window</string>

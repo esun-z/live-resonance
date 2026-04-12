@@ -8,7 +8,6 @@ import win32gui
 import win32process
 import win32con
 
-
 def is_admin() -> bool:
     """Check if the application is running with administrator privileges."""
     try:
@@ -39,6 +38,13 @@ def _get_hwnd_for_pid(pid: int) -> int:
     hwnds = []
     win32gui.EnumWindows(callback, hwnds)
     return hwnds[0] if hwnds else None
+
+def get_process_hwnd(process_name: str) -> int | None:
+    pid = _get_pid_by_name(process_name)
+    if pid is not None:
+        hwnd = _get_hwnd_for_pid(pid)
+        return hwnd
+    return None
 
 def _bring_window_to_front(hwnd: int) -> None:
     # restore window
@@ -87,7 +93,7 @@ def release_key(key_name: str) -> None:
     if key_name:
         keyboard.release(key_name)
 
-def press_and_release_key(key_name: str, interval: float = 0.0) -> None:
+def press_and_release_key(key_name: str) -> None:
     # print(f"Pressing key: {key_name} for {interval} seconds")
     # print(f"Current foreground window title: {win32gui.GetWindowText(win32gui.GetForegroundWindow())}")
     # keyboard.press(key_name)
@@ -98,3 +104,6 @@ def press_and_release_key(key_name: str, interval: float = 0.0) -> None:
     # keyboard.release(key_name)
     if key_name:
         keyboard.press_and_release(key_name)
+
+def send_activate_message(hwnd: int) -> None:
+        win32gui.PostMessage(hwnd, win32con.WM_ACTIVATE, win32con.WA_ACTIVE, 0)

@@ -5,22 +5,26 @@ import mido
 from .note_manager import NoteManager
 from .octave_manager import OctaveManager
 from .sustain_manager import SustainManager
+from .keyboard_manager import KeyboardManager
 from utils.midi_utils import is_note_on, is_note_off, is_padel_on, is_padel_off, get_note_name, get_note_octave
-from models import KeyMapConfig, PlayerConfig, OutOfRangeStrategy, OctaveStrategy
+from models import KeyMapConfig, PlayerConfig, OutOfRangeStrategy, OctaveStrategy, KeyOutConfig
 from logger import get_logger
 
 class MessagePlayer(QObject):
     delayed_note_play_interval_ms: int = 1
-    def __init__(self, key_map: KeyMapConfig, player_config: PlayerConfig, parent=None):
+    def __init__(self, key_map: KeyMapConfig, player_config: PlayerConfig, key_out_config: KeyOutConfig, parent=None):
         super().__init__(parent)
-        self.note_manager = NoteManager(key_map)
+        self.keyboard_manager = KeyboardManager(key_out_config)
+        self.note_manager = NoteManager(key_map, self.keyboard_manager)
         self.octave_manager = OctaveManager(key_map_config=key_map, 
                                             switch_cooldown_ms=player_config.octave_switch_cooldown_ms, 
                                             vision_base_octave=player_config.vision_base_octave, 
+                                            keyboard_manager=self.keyboard_manager,
                                             parent=self)
         self.octave_manager.move_finished.connect(self._handle_octave_move_finished)
         self.sustain_manager = SustainManager(min_interval=player_config.min_padel_interval_ms, 
                                             padel_key=key_map.sustain, 
+                                            keyboard_manager=self.keyboard_manager,
                                             parent=self)
         self.player_config = player_config
         self.note_status: List[int] = [-1] * 128

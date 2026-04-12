@@ -1,7 +1,8 @@
 from PySide6.QtCore import QObject, QTimer
-from utils.system_utils import press_and_release_key
+# from utils.system_utils import press_and_release_key
 from collections import deque
 from typing import Callable, Any
+from .keyboard_manager import KeyboardManager
 
 # class SustainManager(QObject):
 #     def __init__(self, key_map_config: KeyMapConfig, parent=None):
@@ -17,10 +18,11 @@ from typing import Callable, Any
 #         self.sustain_on = is_on
 
 class SustainManager(QObject):
-    def __init__(self, min_interval: int, padel_key: str, parent: QObject = None):
+    def __init__(self, min_interval: int, padel_key: str, keyboard_manager: KeyboardManager, parent: QObject = None):
         super().__init__(parent)
         self._padel_key = padel_key
         self._min_interval = min_interval
+        self._keyboard = keyboard_manager
         self._queue = deque()
         self._is_padel_pressed = False
         self._timer = None
@@ -51,7 +53,7 @@ class SustainManager(QObject):
         # execute the first task in the queue
         is_on = self._queue.popleft()
         if is_on != self._is_padel_pressed:
-            press_and_release_key(self._padel_key)
+            self._keyboard.press_and_release_key(self._padel_key)
             self._is_padel_pressed = is_on
 
         # set timer for the next task

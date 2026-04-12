@@ -144,6 +144,7 @@ class MidiInWidget(QWidget):
                 self.logger.info(f"MIDI input started because: {reason}")
             else:
                 self.logger.warning(f"MIDI input stopped unexpectedly because: {reason}")
+                self.ui.device_enable_check_box.setChecked(False)
             # sync to config
             if self.config:
                 self.config.enabled = running
@@ -154,10 +155,10 @@ class MidiInWidget(QWidget):
                 if self.app_config.key_out.auto_jump:
                     self.logger.info(f"Auto-jumping to target process '{self.app_config.key_out.target_process}' after {self.app_config.key_out.jump_delay} seconds")
                     jump_delay = self.app_config.key_out.jump_delay
-                    if jump_delay > 0: 
+                    if jump_delay >= 0: 
                         QTimer.singleShot(int(jump_delay * 1000), lambda: jump_to_process_window(self.app_config.key_out.target_process))
-                    else:
-                        jump_to_process_window(self.app_config.key_out.target_process)
+                    # else:
+                    #     jump_to_process_window(self.app_config.key_out.target_process)
             else:
                 self.logger.info("MIDI input stopped")
 

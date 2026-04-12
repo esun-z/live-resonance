@@ -22,7 +22,7 @@ class MidiInWorker(QObject):
         self.running = False
         self.muted = False
         self.last_foreground_check_time = None
-        self.message_player = MessagePlayer(self.key_map_config, self.player_config, parent=self)
+        self.message_player = MessagePlayer(self.key_map_config, self.player_config, self.key_out_config, parent=self)
 
     @Slot()
     def start(self):

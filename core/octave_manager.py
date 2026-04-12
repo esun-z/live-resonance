@@ -1,9 +1,10 @@
 from typing import Tuple
 from PySide6.QtCore import QObject, QTimer, Signal, Slot
-from utils.system_utils import press_and_release_key, press_key, release_key
+# from utils.system_utils import press_and_release_key, press_key, release_key
 from utils.midi_utils import get_note_octave
 from utils.ui_constants import UIConstants
 from models.key_map_config import KeyMapConfig
+from .keyboard_manager import KeyboardManager
 from logger import get_logger
 
 class Offsets:
@@ -53,7 +54,7 @@ class Offsets:
 class OctaveManager(QObject):
     move_finished = Signal()
     octave_switch_duration = 60
-    def __init__(self, key_map_config: KeyMapConfig, switch_cooldown_ms: int, vision_base_octave: int, parent=None) -> None:
+    def __init__(self, key_map_config: KeyMapConfig, switch_cooldown_ms: int, vision_base_octave: int, keyboard_manager: KeyboardManager, parent=None) -> None:
         super().__init__(parent)
         self.vision_base_octave = vision_base_octave
         self.offsets = Offsets(0, 0, vision_base_octave)
@@ -63,6 +64,7 @@ class OctaveManager(QObject):
         self.is_cooldown = False
         self.octave_switch_cooldown_ms = switch_cooldown_ms
         self._last_move_has_octave_up = False
+        self._keyboard = keyboard_manager
         # self.logger = get_logger(__name__)
     
     def move_to_offsets(self, target_offsets: Offsets) -> bool:
@@ -76,19 +78,19 @@ class OctaveManager(QObject):
                 if self.offsets.vision_offset == -1: # cannot move to (-1, -1)
                     moved = False
                 else:
-                    press_and_release_key(self.key_map_config.octave_low_offset_switch)
+                    self._keyboard.press_and_release_key(self.key_map_config.octave_low_offset_switch)
             elif target_offsets.octave_offset == 1:
                 if self.offsets.vision_offset == 1: # cannot move to (1, 1)
                     moved = False
                 else:
-                    press_key(self.key_map_config.octave_high_offset_switch)
+                    self._keyboard.press_key(self.key_map_config.octave_high_offset_switch)
                     self._last_move_has_octave_up = True
                     # deal with release after duration for target process to recognize the octave switch
             else: # target_octave_offset == 0
                 if self.offsets.octave_offset < 0:
-                    press_and_release_key(self.key_map_config.octave_low_offset_switch) # press low offset again to cancel low offset
+                    self._keyboard.press_and_release_key(self.key_map_config.octave_low_offset_switch) # press low offset again to cancel low offset
                 elif self.offsets.octave_offset > 0:
-                    press_key(self.key_map_config.octave_high_offset_switch) # press high offset again to cancel high offset
+                    self._keyboard.press_key(self.key_map_config.octave_high_offset_switch) # press high offset again to cancel high offset
                     self._last_move_has_octave_up = True
                 else: # should not happen
                     raise ValueError(f"Invalid target octave offset {target_offsets.octave_offset} when current octave offset is {self.offsets.octave_offset}")
@@ -97,11 +99,11 @@ class OctaveManager(QObject):
         if target_offsets.vision_offset != self.offsets.vision_offset:
             moved = True
             if target_offsets.vision_offset < 0:
-                press_and_release_key(self.key_map_config.vision_to_low)
+                self._keyboard.press_and_release_key(self.key_map_config.vision_to_low)
             elif target_offsets.vision_offset == 0:
-                press_and_release_key(self.key_map_config.vision_to_mid)
+                self._keyboard.press_and_release_key(self.key_map_config.vision_to_mid)
             else: # target_vision_offset > 0
-                press_and_release_key(self.key_map_config.vision_to_high)
+                self._keyboard.press_and_release_key(self.key_map_config.vision_to_high)
         
         if moved:
             self.is_switching_octave = True
@@ -110,7 +112,7 @@ class OctaveManager(QObject):
 
     def _handle_move_finished(self):
         if self._last_move_has_octave_up:
-            release_key(self.key_map_config.octave_high_offset_switch)
+            self._keyboard.release_key(self.key_map_config.octave_high_offset_switch)
             self._last_move_has_octave_up = False
         self.offsets = self.next_offsets
         self.is_switching_octave = False

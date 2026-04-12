@@ -6,3 +6,4 @@ class KeyOutConfig(BaseModel):
     auto_jump: bool = False
     jump_delay: float = 0.0
     mute_outside_target: bool = False
+    background_input: bool = False
